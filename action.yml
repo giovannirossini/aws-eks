@@ -1,0 +1,38 @@
+# action.yml
+name: 'AWS EKS with Kubectl'
+description: 'Deploy to AWS EKS with Kubectl'
+branding:
+  icon: 'cloud'
+  color: 'gray-dark'
+inputs:
+  aws-access-key-id:
+    description: 'AWS Access Key ID'
+    required: true
+    default: ''
+  aws-secret-access-key:
+    description: 'AWS Secret Access Key'
+    required: true
+    default: ''
+  aws-region:
+    description: 'AWS Region'
+    required: true
+    default: ''
+  cluster-name:
+    description: 'Cluster Name'
+    required: true
+    default: ''
+  command:
+    description: 'Kubectl command'
+    required: true
+    default: ''
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env:
+    AWS_ACCESS_KEY_ID : ${{ inputs.aws-access-key-id }}
+    AWS_SECRET_ACCESS_KEY : ${{ inputs.aws-secret-access-key }}
+    AWS_DEFAULT_REGION : ${{ inputs.aws-region }}
+    CLUSTER_NAME : ${{ inputs.cluster-name }}
+  args:
+    - /entrypoint.sh ${{ inputs.command }}

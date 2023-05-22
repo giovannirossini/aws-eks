@@ -1,0 +1,19 @@
+on: [push]
+
+
+jobs:
+  test-eks-kubectl:
+    runs-on: ubuntu-latest
+    name: Testing AWS EKS with Kubectl
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Test action
+        uses: ./
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          cluster-name: 'production'
+          command: |
+            kubectl get pods
