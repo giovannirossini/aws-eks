@@ -12,4 +12,5 @@ if [[ $1 == "kubectl" || $1 == "aws" && $2 == "eks" ]]; then
   $@
 else
   echo "aws-eks: You must provide a 'kubectl' or an 'aws eks' command."
+  exit 1
 fi
