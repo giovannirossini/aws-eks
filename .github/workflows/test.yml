@@ -1,4 +1,10 @@
-on: [push]
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
 
 
 jobs:
@@ -8,12 +14,27 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Test action
+      - name: Test action with 'kubectl' command
         uses: ./
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: 'us-east-1'
           cluster-name: 'production'
-          command: |
-            kubectl get pods
+          command: kubectl get pods -n default
+      - name: Test action with 'aws eks' command
+        uses: ./
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          cluster-name: 'production'
+          command: aws eks --help
+      - name: Test action with 'aws s3' command
+        uses: ./
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: 'us-east-1'
+          cluster-name: 'production'
+          command: aws s3 --help
