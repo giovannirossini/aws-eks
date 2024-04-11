@@ -33,12 +33,12 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to AWS EKS
-        uses: giovannirossini/aws-eks-kubectl-action@v1
+        uses: giovannirossini/aws-eks@v1.0.2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-1'
-          cluster-name: 'my-eks-cluster'
+          aws-region: "us-east-1"
+          cluster-name: "my-eks-cluster"
           command: |
             kubectl apply -f stage/deployment.yaml
 ```
