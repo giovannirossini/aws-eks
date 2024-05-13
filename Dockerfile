@@ -7,7 +7,7 @@ RUN pip3 install --upgrade pip --break-system-packages \
 
 RUN STABLE=$(curl -Ls https://dl.k8s.io/release/stable.txt | awk -F'.' '{print $2}'); \
   for i in $(seq $((STABLE-10)) $STABLE); do \
-  curl -Ls https://dl.k8s.io/release/v1.$i.0/bin/linux/$(arch)/kubectl -o /usr/bin/kubectl-v1.$i; \
+  curl -Ls https://dl.k8s.io/release/v1.$i.0/bin/linux/amd64/kubectl -o /usr/bin/kubectl-v1.$i; \
   chmod +x /usr/bin/kubectl-v1.$i; \
   done
 
