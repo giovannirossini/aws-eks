@@ -2,7 +2,7 @@
 set -e >> /dev/null 2>&1;
 set -o pipefail >> /dev/null 2>&1;
 
-alias kubectl="kubectl-v${VERSION:-1.30}"
+ln -s /usr/bin/kubectl-v${VERSION:-1.30} /usr/bin/kubectl
 
 echo ">>> Authenticating..."
 
