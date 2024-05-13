@@ -9,6 +9,7 @@ This GitHub Actions action allows you to deploy to AWS EKS (Elastic Kubernetes S
 - `aws-region` (required): The AWS region where your EKS cluster is located.
 - `cluster-name` (required): The name of your EKS cluster.
 - `command` (required): The `kubectl` command to run.
+- `kubectl-version` (optional): The version of `kubectl` to use. If not provided, the latest version will be used.
 
 ## Outputs
 
@@ -33,12 +34,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Deploy to AWS EKS
-        uses: giovannirossini/aws-eks@v1.0.2
+        uses: giovannirossini/aws-eks@v2.0.0
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: "us-east-1"
           cluster-name: "my-eks-cluster"
+          kubectl-version: "1.27"
           command: |
             kubectl apply -f stage/deployment.yaml
 ```

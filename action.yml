@@ -1,38 +1,42 @@
 # action.yml
-name: 'AWS EKS with Kubectl'
-description: 'Deploy to AWS EKS with Kubectl'
+name: "AWS EKS with Kubectl"
+description: "Deploy to AWS EKS with Kubectl"
 branding:
-  icon: 'cloud'
-  color: 'gray-dark'
+  icon: "cloud"
+  color: "gray-dark"
 inputs:
   aws-access-key-id:
-    description: 'AWS Access Key ID'
+    description: "AWS Access Key ID"
     required: true
-    default: ''
+    default: ""
   aws-secret-access-key:
-    description: 'AWS Secret Access Key'
+    description: "AWS Secret Access Key"
     required: true
-    default: ''
+    default: ""
   aws-region:
-    description: 'AWS Region'
+    description: "AWS Region"
     required: true
-    default: ''
+    default: ""
   cluster-name:
-    description: 'Cluster Name'
+    description: "Cluster Name"
     required: true
-    default: ''
+    default: ""
+  kubectl-version:
+    description: "Kubectl Version"
+    required: false
   command:
-    description: 'Kubectl command'
+    description: "Kubectl Command"
     required: true
-    default: ''
+    default: ""
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   env:
-    AWS_ACCESS_KEY_ID : ${{ inputs.aws-access-key-id }}
-    AWS_SECRET_ACCESS_KEY : ${{ inputs.aws-secret-access-key }}
-    AWS_DEFAULT_REGION : ${{ inputs.aws-region }}
-    CLUSTER_NAME : ${{ inputs.cluster-name }}
+    AWS_ACCESS_KEY_ID: ${{ inputs.aws-access-key-id }}
+    AWS_SECRET_ACCESS_KEY: ${{ inputs.aws-secret-access-key }}
+    AWS_DEFAULT_REGION: ${{ inputs.aws-region }}
+    CLUSTER_NAME: ${{ inputs.cluster-name }}
+    VERSION: ${{ inputs.kubectl-version }}
   args:
     - /entrypoint.sh ${{ inputs.command }}
